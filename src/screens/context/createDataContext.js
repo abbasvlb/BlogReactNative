@@ -4,7 +4,7 @@ export default (reducer , actions, initialState) => {
 
     const Context = React.createContext();
 
-    const Provider  = ({childern}) => {
+    const Provider  = (props) => {
 
         const [state,dispatch] = useReducer(reducer,initialState);
 
@@ -13,9 +13,11 @@ export default (reducer , actions, initialState) => {
             boundActions[key] = actions[key](dispatch);
         }
 
-        return <Context.Provider value={{state, ...boundActions}}>{childern}</Context.Provider>;
+        return <Context.Provider value={{state, ...boundActions}}>{props.children}</Context.Provider>;
 
     };
+
+  
 
     return { Context,Provider};
 
