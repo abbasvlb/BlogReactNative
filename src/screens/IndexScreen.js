@@ -2,17 +2,15 @@ import { React, useContext } from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Context } from "./context/BlogContext";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import ShowScreen from "./ShowScreen";
 
 const IndexScreen = (props) => {
-  
-
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
   return (
     <View>
-      <Button title="Add blog posts" onPress={addBlogPost} />
+      
       <FlatList
         data={state}
         keyExtractor={(item) => item.id}
@@ -21,13 +19,12 @@ const IndexScreen = (props) => {
             <TouchableOpacity
               onPress={() => {
                 console.log("pressed");
-                props.navigation.navigate('ShowScreen',{id: item.id});
+                props.navigation.navigate("ShowScreen", { id: item.id });
               }}
             >
               <View style={style.row}>
                 <Text style={style.title}>
-                  {item.title}
-                  {item.id}
+                  {item.title} - {item.description}
                 </Text>
                 <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                   <AntDesign name="delete" style={style.icon} color="black" />
@@ -39,6 +36,17 @@ const IndexScreen = (props) => {
       />
     </View>
   );
+};
+
+IndexScreen.navigationOptions = (props) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => props.navigation.navigate('CreateBlog')}>
+        <Feather name="plus" size={30} />
+      </TouchableOpacity>
+    ),
+    
+  };
 };
 
 const style = StyleSheet.create({

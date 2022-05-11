@@ -1,20 +1,23 @@
-import { React, useContext } from 'react'
-import { View, Text, StyleSheet,Button } from 'react-native'
+import { React, useState, useContext } from "react";
+import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import BlogForm from "./components/BlogForm";
+import { Context } from "./context/BlogContext";
 
+const CreateBlog = ({navigation}) => {
+  
+  const { addBlogPost } = useContext(Context);
 
-
-const CreateBlog = () => {
-
-    return <View>
-
-        <Button title = 'Add posts'/>
-
-    </View>
-
+  return (
+    <BlogForm submitcallback = {(title,description)=>{
+        addBlogPost(title,description,()=>{
+            navigation.navigate('IndexScreen')
+        })
+    }}/>
+  );
 };
 
-const style = StyleSheet.create({
-
+const styles = StyleSheet.create({
+  
 });
 
 export default CreateBlog;
