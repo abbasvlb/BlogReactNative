@@ -19,7 +19,7 @@ const navigator = createStackNavigator(
   {
     initialRouteName: "IndexScreen",
     defaultNavigationOptions: {
-      title: "Blogss",
+      title: "Blogs",
     },
   }
 );

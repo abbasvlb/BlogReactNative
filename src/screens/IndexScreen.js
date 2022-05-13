@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext,useEffect } from "react";
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Context } from "./context/BlogContext";
@@ -6,7 +6,14 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import ShowScreen from "./ShowScreen";
 
 const IndexScreen = (props) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost,getBlogPosts } = useContext(Context);
+
+  console.log("Use Effesct before");
+
+  useEffect(()=>{
+    console.log("Use Effect");
+    getBlogPosts();
+  },[]);
 
   return (
     <View>
