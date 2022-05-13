@@ -43,7 +43,8 @@ const getBlogPosts = (dispatch) => {
 };
 
 const editBlogPost = (dispatch) => {
-  return (id, title, description, callback) => {
+  return async (id, title, description, callback) => {
+    await jsonServer.put(`/blogposts/${id}`,{title,description})
     console.log("Entered here" + id + title + description);
     dispatch({ type: "edit_blogpost", payload: { id, title, description } });
     callback();
@@ -52,14 +53,16 @@ const editBlogPost = (dispatch) => {
 
 const addBlogPost = (dispatch) => {
   return async (title, description, callback) => {
-    await new Promise((res) => setTimeout(res, 10));
-    dispatch({ type: "add_blogpost", payload: { title, description } });
+    await jsonServer.post("/blogposts",{title,description})
+    //await new Promise((res) => setTimeout(res, 10));
+    //dispatch({ type: "add_blogpost", payload: { title, description } });
     callback();
   };
 };
 
 const deleteBlogPost = (dispatch) => {
-  return (id) => {
+  return async (id) => {
+    await jsonServer.delete(`/blogposts/${id}`)
     dispatch({ type: "delete_blogpost", payload: id });
   };
 };
